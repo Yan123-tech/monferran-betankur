@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Монферран и Бетанкур — Инженерные шедевры Петербурга</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#f0e9d6;--bg2:#e8e0cb;--ink:#1b3d6e;--ink2:#3a6898;--ink3:#8ab0cc;
+  --brz:#7a4812;--sec:#c83218;--cream:#ede6d0;--cream2:#e8dfc6;--cream3:#f2ece0;
+  --amber:#e8d8b0;--text:#2a2a28;--muted:#6a6a60;
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --mono:'IBM Plex Mono','Courier New',monospace;
+}
+html{scroll-behavior:smooth;zoom:1.22}
+body{background:var(--bg);color:var(--text);font-family:var(--serif);overflow-x:hidden}
+
+/* ─── SCROLL ANIMATIONS ─── */
+.reveal{opacity:0;transform:translateY(40px);transition:opacity 1s ease,transform 1s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-left{opacity:0;transform:translateX(-60px);transition:opacity 0.9s ease,transform 0.9s ease}
+.reveal-left.visible{opacity:1;transform:translateX(0)}
+.reveal-right{opacity:0;transform:translateX(60px);transition:opacity 0.9s ease,transform 0.9s ease}
+.reveal-right.visible{opacity:1;transform:translateX(0)}
+.reveal-scale{opacity:0;transform:scale(0.92);transition:opacity 1.2s ease,transform 1.2s ease}
+.reveal-scale.visible{opacity:1;transform:scale(1)}
+
+/* ─── HERO ─── */
+.hero{
+  min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;position:relative;padding:60px 20px;
+  background:linear-gradient(180deg,#e8e0cb 0%,#f0e9d6 40%,#f0e9d6 100%);
+}
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background:repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(27,61,110,0.04) 39px,rgba(27,61,110,0.04) 40px),
+  repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(27,61,110,0.04) 39px,rgba(27,61,110,0.04) 40px);
+  pointer-events:none;
+}
+.hero-ornament{
+  width:120px;height:2px;background:linear-gradient(90deg,transparent,var(--ink),transparent);
+  margin:0 auto 30px;opacity:0.4;
+}
+.hero h1{
+  font-family:var(--serif);font-size:clamp(2rem,5vw,3.6rem);font-weight:700;
+  color:var(--ink);letter-spacing:0.04em;line-height:1.2;max-width:800px;
+}
+.hero .subtitle{
+  font-family:var(--mono);font-size:clamp(0.65rem,1.4vw,0.85rem);color:var(--ink2);
+  text-transform:uppercase;letter-spacing:0.3em;margin-top:20px;
+}
+.hero .year-badge{
+  display:inline-block;margin-top:32px;padding:8px 28px;
+  border:1.5px solid var(--ink);color:var(--ink);font-family:var(--mono);
+  font-size:0.78rem;letter-spacing:0.2em;
+}
+.scroll-hint{
+  position:absolute;bottom:40px;left:50%;transform:translateX(-50%);
+  font-family:var(--mono);font-size:0.65rem;color:var(--ink3);letter-spacing:0.15em;
+  text-transform:uppercase;animation:bob 2s ease-in-out infinite;
+}
+@keyframes bob{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(8px)}}
+
+/* ─── SECTION DIVIDER ─── */
+.divider{
+  display:flex;align-items:center;justify-content:center;gap:16px;
+  padding:60px 20px;
+}
+.divider .line{flex:1;max-width:200px;height:1px;background:linear-gradient(90deg,transparent,var(--ink2),transparent);opacity:0.3}
+.divider .diamond{width:8px;height:8px;background:var(--ink2);transform:rotate(45deg);opacity:0.4}
+
+/* ─── BIOGRAPHICAL SECTION ─── */
+.bio-section{padding:40px 20px 80px;max-width:1100px;margin:0 auto}
+.bio-section .section-title{
+  font-family:var(--mono);font-size:0.72rem;color:var(--ink2);text-transform:uppercase;
+  letter-spacing:0.35em;text-align:center;margin-bottom:50px;
+}
+.bio-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start}
+@media(max-width:768px){.bio-grid{grid-template-columns:1fr;gap:40px}}
+
+.bio-card{
+  background:var(--cream3);border:1px solid rgba(27,61,110,0.1);padding:40px;
+  position:relative;
+}
+.bio-card::before{
+  content:'';position:absolute;top:0;left:0;width:4px;height:100%;background:var(--ink);opacity:0.15;
+}
+.bio-card .portrait-frame{
+  width:140px;height:170px;margin:0 auto 24px;
+  border:1.5px solid var(--ink2);position:relative;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--cream2);
+}
+.portrait-frame .initials{
+  font-family:var(--serif);font-size:3.2rem;font-weight:700;color:var(--ink);opacity:0.15;
+}
+.portrait-frame .portrait-img{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;
+}
+/* Hide initials when image loads successfully */
+.portrait-frame .portrait-img+.initials{opacity:0}
+.portrait-frame .portrait-img[data-failed]+.initials{opacity:0.15}
+.bio-card h2{
+  font-family:var(--serif);font-size:1.5rem;font-weight:700;color:var(--ink);text-align:center;
+}
+.bio-card .years{
+  font-family:var(--mono);font-size:0.72rem;color:var(--ink3);text-align:center;
+  letter-spacing:0.2em;margin-top:4px;
+}
+.bio-card .origin{
+  font-family:var(--mono);font-size:0.62rem;color:var(--muted);text-align:center;
+  text-transform:uppercase;letter-spacing:0.25em;margin-top:6px;
+}
+.bio-card .bio-facts{margin-top:20px;padding-top:20px;border-top:1px solid rgba(27,61,110,0.08)}
+.bio-card .bio-facts p{
+  font-family:var(--serif);font-size:0.95rem;line-height:1.7;color:var(--text);
+  margin-bottom:8px;
+}
+.bio-card .role-badge{
+  display:inline-block;margin-top:16px;padding:5px 14px;
+  background:rgba(27,61,110,0.06);border:1px solid rgba(27,61,110,0.12);
+  font-family:var(--mono);font-size:0.62rem;color:var(--ink);
+  text-transform:uppercase;letter-spacing:0.15em;
+}
+
+/* ─── CHAPTER INTRO ─── */
+.chapter-intro{
+  padding:80px 20px;text-align:center;
+  background:linear-gradient(180deg,var(--bg) 0%,var(--bg2) 100%);
+}
+.chapter-intro .chapter-num{
+  font-family:var(--mono);font-size:0.65rem;color:var(--sec);text-transform:uppercase;
+  letter-spacing:0.4em;
+}
+.chapter-intro h2{
+  font-family:var(--serif);font-size:clamp(1.6rem,3.5vw,2.4rem);font-weight:700;
+  color:var(--ink);margin-top:12px;max-width:700px;margin-left:auto;margin-right:auto;
+}
+.chapter-intro .ch-sub{
+  font-family:var(--mono);font-size:0.7rem;color:var(--ink3);margin-top:14px;
+  letter-spacing:0.12em;
+}
+
+/* ─── 3D CANVAS SECTIONS ─── */
+.model-section{position:relative;min-height:100vh;overflow:hidden}
+.model-canvas{display:block;width:100%;height:100vh}
+
+/* HUD for 3D views */
+.model-hud{position:absolute;inset:0;pointer-events:none;z-index:10}
+.model-hud .scan-line{
+  position:absolute;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,#c8321822,#c8321844,#c8321822,transparent);
+  animation:scan 9s linear infinite;
+}
+@keyframes scan{0%{top:-1px;opacity:0}4%{opacity:1}96%{opacity:1}100%{top:100%;opacity:0}}
+.model-hud .vignette{position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 55%,#d4c8a822 100%)}
+
+.hud-corner{position:absolute;width:38px;height:38px}
+.hud-corner svg{width:100%;height:100%}
+.hud-tl{top:14px;left:14px}
+.hud-tr{top:14px;right:14px;transform:scaleX(-1)}
+.hud-bl{bottom:14px;left:14px;transform:scaleY(-1)}
+.hud-br{bottom:14px;right:14px;transform:scale(-1)}
+
+.hud-title{
+  position:absolute;top:22px;left:50%;transform:translateX(-50%);
+  text-align:center;white-space:nowrap;
+}
+.hud-title .main{font-family:var(--mono);font-size:12px;color:var(--ink);text-transform:uppercase;font-weight:bold;letter-spacing:0.3em}
+.hud-title .sub{font-family:var(--mono);font-size:8.5px;color:var(--ink2);text-transform:uppercase;margin-top:3px;letter-spacing:0.28em}
+
+.hud-specs{
+  position:absolute;bottom:26px;left:22px;
+  font-family:var(--mono);font-size:10px;line-height:2.0;letter-spacing:0.04em;
+}
+.hud-specs .lbl{color:#7a9ab6}
+.hud-specs .val{color:var(--ink);font-weight:bold}
+
+.hud-controls{
+  position:absolute;bottom:26px;right:22px;pointer-events:auto;
+  font-family:var(--mono);color:#8aacc8;font-size:9px;line-height:1.9;
+  text-align:right;letter-spacing:0.05em;
+}
+.hud-controls .autorot{margin-top:5px;color:#aac4d8;cursor:pointer}
+
+.zoom-hint{
+  position:absolute;bottom:50%;left:50%;transform:translate(-50%,50%);
+  background:rgba(27,61,110,0.85);color:#f0e9d6;
+  font-family:var(--mono);font-size:0.72rem;letter-spacing:0.1em;
+  padding:10px 22px;border-radius:4px;pointer-events:none;
+  opacity:0;transition:opacity 0.4s ease;z-index:30;white-space:nowrap;
+}
+
+.hud-ruler{
+  position:absolute;bottom:76px;left:50%;transform:translateX(-50%);
+  display:flex;align-items:center;
+}
+.rl{height:1px;background:#7a9ab6}
+.rt{width:1px;height:7px;background:#4a7aaa}
+.rlab{color:#7a9ab6;font-family:var(--mono);font-size:8px;margin:0 5px;letter-spacing:0.1em}
+
+/* ─── INFO PANELS alongside models ─── */
+.info-overlay{
+  position:absolute;top:0;right:0;width:340px;height:100%;
+  pointer-events:none;z-index:20;padding:80px 20px 20px;
+  display:flex;flex-direction:column;gap:16px;justify-content:center;
+}
+@media(max-width:900px){.info-overlay{display:none}}
+.info-card{
+  pointer-events:auto;
+  background:rgba(240,233,214,0.92);backdrop-filter:blur(8px);
+  border:1px solid rgba(27,61,110,0.12);padding:16px 18px;
+  opacity:0;transform:translateX(30px);transition:opacity 0.8s ease,transform 0.8s ease;
+}
+.info-card.visible{opacity:1;transform:translateX(0)}
+.info-card .ic-num{
+  font-family:var(--mono);font-size:0.58rem;color:var(--sec);text-transform:uppercase;
+  letter-spacing:0.3em;margin-bottom:6px;
+}
+.info-card h3{font-family:var(--serif);font-size:1rem;font-weight:600;color:var(--ink);margin-bottom:6px}
+.info-card p{font-family:var(--serif);font-size:0.82rem;line-height:1.55;color:var(--text)}
+
+/* ─── FOOTER ─── */
+footer{
+  border-top:1px solid rgba(27,61,110,0.12);padding:50px 20px;
+  max-width:900px;margin:0 auto;
+}
+footer h3{
+  font-family:var(--mono);font-size:0.65rem;color:var(--ink2);text-transform:uppercase;
+  letter-spacing:0.3em;margin-bottom:20px;
+}
+footer ol{
+  list-style:decimal;padding-left:20px;
+}
+footer li{
+  font-family:var(--serif);font-size:0.82rem;line-height:1.8;color:var(--muted);
+}
+footer .copy{
+  margin-top:30px;font-family:var(--mono);font-size:0.6rem;color:var(--ink3);
+  letter-spacing:0.1em;text-align:center;
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<section class="hero">
+  <div class="hero-ornament"></div>
+  <h1>Тандем Монферрана и&nbsp;Бетанкура</h1>
+  <div class="subtitle">Инженерные решения при возведении Александровской колонны<br>и строительстве Исаакиевского собора</div>
+  <div class="year-badge">1818 — 1858</div>
+  <div class="scroll-hint">↓ Прокрутите вниз</div>
+</section>
+
+<!-- ═══════════════ BIOGRAPHIES ═══════════════ -->
+<div class="divider"><div class="line"></div><div class="diamond"></div><div class="line"></div></div>
+
+<section class="bio-section">
+  <div class="section-title reveal">Биографическая справка</div>
+  <div class="bio-grid">
+    <div class="bio-card reveal-left" style="transition-delay:0.15s">
+      <div class="portrait-frame">
+        <img src="betancourt.jpg" alt="Августин де Бетанкур" class="portrait-img">
+        <span class="initials">АБ</span>
+      </div>
+      <h2>Августин де Бетанкур</h2>
+      <div class="years">1758 — 1824</div>
+      <div class="origin">Пуэрто-де-ла-Крус, о. Тенерифе, Испания</div>
+      <div class="bio-facts">
+        <p>Инженер, учёный, организатор. Первый ректор Института Корпуса инженеров путей сообщения. Глава Комитета строений и гидравлических работ.</p>
+        <p>Создатель механизмов для подъёма колонн Исаакиевского собора, проектировщик Московского Манежа и чугунных мостов Петербурга.</p>
+      </div>
+      <div class="role-badge">Инженер · Конструктор</div>
+    </div>
+    <div class="bio-card reveal-right" style="transition-delay:0.3s">
+      <div class="portrait-frame">
+        <img src="montferrand.jpg" alt="Огюст Монферран" class="portrait-img">
+        <span class="initials">ОМ</span>
+      </div>
+      <h2>Огюст Монферран</h2>
+      <div class="years">1786 — 1858</div>
+      <div class="origin">Шайо, предместье Парижа, Франция</div>
+      <div class="bio-facts">
+        <p>Архитектор, «императорский зодчий». Создатель Исаакиевского собора и Александровской колонны — двух главных символов Петербурга.</p>
+        <p>Рекомендован Бетанкуром Александру I. Руководил строительством собора 40 лет, воплотив инженерные решения наставника.</p>
+      </div>
+      <div class="role-badge">Архитектор · Зодчий</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ CHAPTER 1: ALEXANDER COLUMN ═══════════════ -->
+<section class="chapter-intro reveal">
+  <div class="chapter-num">Глава I</div>
+  <h2>Александровская колонна</h2>
+  <div class="ch-sub">Дворцовая площадь · 1829–1834</div>
+</section>
+
+<section class="model-section" id="column-section">
+  <canvas class="model-canvas" id="columnCanvas"></canvas>
+  <div class="model-hud">
+    <div class="scan-line"></div>
+    <div class="vignette"></div>
+    <div class="hud-corner hud-tl"><svg viewBox="0 0 38 38"><polyline points="38,2 2,2 2,38" fill="none" stroke="#1b3d6e" stroke-width="1.4" opacity="0.55"/></svg></div>
+    <div class="hud-corner hud-tr"><svg viewBox="0 0 38 38"><polyline points="38,2 2,2 2,38" fill="none" stroke="#1b3d6e" stroke-width="1.4" opacity="0.55"/></svg></div>
+    <div class="hud-corner hud-bl"><svg viewBox="0 0 38 38"><polyline points="38,2 2,2 2,38" fill="none" stroke="#1b3d6e" stroke-width="1.4" opacity="0.55"/></svg></div>
+    <div class="hud-corner hud-br"><svg viewBox="0 0 38 38"><polyline points="38,2 2,2 2,38" fill="none" stroke="#1b3d6e" stroke-width="1.4" opacity="0.55"/></svg></div>
+    <div class="hud-title">
+      <div class="main">Александровская Колонна</div>
+      <div class="sub">Дворцовая площадь · Санкт-Петербург · 1834</div>
+    </div>
+    <div class="hud-specs">
+      <div><span class="lbl">ВЫСОТА ОБЩАЯ&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="val">47.50 м</span></div>
+      <div><span class="lbl">ВЫСОТА КОЛОННЫ&nbsp;&nbsp;</span><span class="val">25.58 м</span></div>
+      <div><span class="lbl">ДИАМЕТР ОСНОВАНИЯ</span><span class="val">3.66 м</span></div>
+      <div><span class="lbl">МАТЕРИАЛ КОЛОННЫ </span><span class="val">ГРАНИТ (МОНОЛИТ)</span></div>
+      <div><span class="lbl">МАССА КОЛОННЫ&nbsp;&nbsp;&nbsp;</span><span class="val">~600 ТОНН</span></div>
+      <div><span class="lbl">АРХИТЕКТОР&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="val">О. МОНФЕРРАН</span></div>
+    </div>
+    <div class="hud-controls">
+      <div>ЛКМ — ВРАЩЕНИЕ</div>
+      <div>ПКМ — ПАНОРАМА</div>
+      <div>CTRL + КОЛЕСО — МАСШТАБ</div>
+      <div class="autorot" id="colRotLabel">AUTO ROTATE: ON</div>
+    </div>
+    <div class="hud-ruler">
+      <div class="rt"></div><div class="rl" style="width:80px"></div>
+      <div class="rt"></div><div class="rl" style="width:80px"></div>
+      <div class="rt"></div><div class="rl" style="width:80px"></div>
+      <div class="rt"></div><div class="rl" style="width:80px"></div>
+      <div class="rt"></div>
+      <span class="rlab">0&nbsp;&nbsp;&nbsp;10&nbsp;&nbsp;20&nbsp;&nbsp;30&nbsp;&nbsp;40 м</span>
+    </div>
+  </div>
+  <!-- Info panels -->
+  <div class="info-overlay" id="colInfo">
+    <div class="info-card" data-delay="0">
+      <div class="ic-num">Фундамент</div>
+      <h3>Свайное основание</h3>
+      <p>1250 сосновых свай длиной 6,36 м, забитых копром Бетанкура. Головки срезаны по уровню воды для идеальной горизонтальности.</p>
+    </div>
+    <div class="info-card" data-delay="200">
+      <div class="ic-num">Пьедестал</div>
+      <h3>Гранитный монолит</h3>
+      <p>Основание пьедестала — монолит весом 400 тонн. Скреплён с фундаментом раствором цемента с добавлением водки и мыла.</p>
+    </div>
+    <div class="info-card" data-delay="400">
+      <div class="ic-num">Подъём</div>
+      <h3>Система Бетанкура</h3>
+      <p>Леса 47 м, кабестаны и блоки. 2400 человек подняли 600-тонный монолит за 1 час 45 минут — 30 августа 1832 года.</p>
+    </div>
+    <div class="info-card" data-delay="600">
+      <div class="ic-num">Устойчивость</div>
+      <h3>Без крепления</h3>
+      <p>Колонна удерживается исключительно собственным весом. За ~200 лет ни разу не отклонилась от вертикали.</p>
+    </div>
+  </div>
+  <div class="zoom-hint">Используйте Ctrl + колесо для масштабирования</div>
+</section>
+
+<!-- ═══════════════ CHAPTER 2: ST ISAAC'S CATHEDRAL ═══════════════ -->
+<section class="chapter-intro reveal">
+  <div class="chapter-num">Глава II</div>
+  <h2>Исаакиевский собор</h2>
+  <div class="ch-sub">Исаакиевская площадь · 1818–1858</div>
+</section>
+
+<section class="model-section" id="cathedral-section">
+  <canvas class="model-canvas" id="cathedralCanvas"></canvas>
+  <div class="model-hud">
+    <div class="scan-line"></div>
+    <div class="vignette"></div>
+    <div class="hud-corner hud-tl"><svg viewBox="0 0 38 38"><polyline points="38,2 2,2 2,38" fill="none" stroke="#1b3d6e" stroke-width="1.4" opacity="0.55"/></svg></div>
+    <div class="hud-corner hud-tr"><svg viewBox="0 0 38 38"><polyline points="38,2 2,2 2,38" fill="none" stroke="#1b3d6e" stroke-width="1.4" opacity="0.55"/></svg></div>
+    <div class="hud-corner hud-bl"><svg viewBox="0 0 38 38"><polyline points="38,2 2,2 2,38" fill="none" stroke="#1b3d6e" stroke-width="1.4" opacity="0.55"/></svg></div>
+    <div class="hud-corner hud-br"><svg viewBox="0 0 38 38"><polyline points="38,2 2,2 2,38" fill="none" stroke="#1b3d6e" stroke-width="1.4" opacity="0.55"/></svg></div>
+    <div class="hud-title">
+      <div class="main">Исаакиевский Собор</div>
+      <div class="sub">Исаакиевская площадь · Санкт-Петербург · 1858</div>
+    </div>
+    <div class="hud-specs">
+      <div><span class="lbl">ВЫСОТА СОБОРА&nbsp;&nbsp;&nbsp;</span><span class="val">101.50 м</span></div>
+      <div><span class="lbl">РАЗМЕРЫ В ПЛАНЕ&nbsp;</span><span class="val">111.5 × 97.6 м</span></div>
+      <div><span class="lbl">ДИАМЕТР КУПОЛА&nbsp;&nbsp;</span><span class="val">25.80 м</span></div>
+      <div><span class="lbl">КОЛОНН ПОРТИКОВ&nbsp;</span><span class="val">48 (ПО 114 ТОНН)</span></div>
+      <div><span class="lbl">КОНСТРУКЦИЯ КУПОЛА</span><span class="val">МЕТАЛЛ (ЧУГУН/ЖЕЛЕЗО)</span></div>
+      <div><span class="lbl">АРХИТЕКТОР&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="val">О. МОНФЕРРАН</span></div>
+    </div>
+    <div class="hud-controls">
+      <div>ЛКМ — ВРАЩЕНИЕ</div>
+      <div>ПКМ — ПАНОРАМА</div>
+      <div>CTRL + КОЛЕСО — МАСШТАБ</div>
+      <div class="autorot" id="catRotLabel">AUTO ROTATE: ON</div>
+    </div>
+    <div class="hud-ruler">
+      <div class="rt"></div><div class="rl" style="width:60px"></div>
+      <div class="rt"></div><div class="rl" style="width:60px"></div>
+      <div class="rt"></div><div class="rl" style="width:60px"></div>
+      <div class="rt"></div><div class="rl" style="width:60px"></div>
+      <div class="rt"></div><div class="rl" style="width:60px"></div>
+      <div class="rt"></div>
+      <span class="rlab">0&nbsp;&nbsp;20&nbsp;&nbsp;40&nbsp;&nbsp;60&nbsp;&nbsp;80&nbsp;100 м</span>
+    </div>
+  </div>
+  <!-- Info panels -->
+  <div class="info-overlay" id="catInfo">
+    <div class="info-card" data-delay="0">
+      <div class="ic-num">Фундамент</div>
+      <h3>Сплошная платформа</h3>
+      <p>Более 10 000 просмолённых свай в болотистом грунте. Сваи спилены подо льдом для горизонтальности. 5 лет работ.</p>
+    </div>
+    <div class="info-card" data-delay="200">
+      <div class="ic-num">Портики</div>
+      <h3>Колонны до стен</h3>
+      <p>48 колонн по 114 тонн установлены до возведения стен. Леса Бетанкура, 16 кабестанов, 128 рабочих. 40–45 мин на колонну.</p>
+    </div>
+    <div class="info-card" data-delay="400">
+      <div class="ic-num">Купол</div>
+      <h3>Тройная металлическая оболочка</h3>
+      <p>Впервые в таком масштабе: сферическая + коническая + параболическая. 24 чугунных ребра, 490 т железа, 990 т чугуна.</p>
+    </div>
+    <div class="info-card" data-delay="600">
+      <div class="ic-num">Золочение</div>
+      <h3>100 кг червонного золота</h3>
+      <p>Огневое золочение: медные листы покрывали амальгамой и нагревали, выпаривая ртуть. Работы велись 8 лет (1835–1843).</p>
+    </div>
+  </div>
+  <div class="zoom-hint">Используйте Ctrl + колесо для масштабирования</div>
+</section>
+
+<!-- ═══════════════ FOOTER ═══════════════ -->
+<div class="divider"><div class="line"></div><div class="diamond"></div><div class="line"></div></div>
+
+<footer>
+  <h3>Источники</h3>
+  <ol>
+    <li>Президентская библиотека им. Б. Н. Ельцина — «Августин де Бетанкур-и-Молина» (prlib.ru)</li>
+    <li>Государственный музей-памятник «Исаакиевский собор» — «День рождения Огюста Монферрана»; Научно-просветительский проект «Бетанкур» (cathedral.ru)</li>
+    <li>Википедия — статьи «Монферран, Огюст», «Исаакиевский собор», «Бетанкур, Августин Августинович»</li>
+    <li>Портал «Культура.РФ» — «10 фактов об Александровской колонне», «10 фактов об Исаакиевском соборе»</li>
+    <li>Газета «Коммерсантъ» — «Символ мира — на водке с мылом» (11.09.2024)</li>
+    <li>Журнал «Дилетант» — «Августин Бетанкур — испанский инженерный гений в России»</li>
+    <li>Чеканова О. А., Ротач А. Л. — «Огюст Монферран» (монография)</li>
+  </ol>
+  <div class="copy">ИТМО · История Российской науки и техники · 2026</div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+// ═══════════════════════════════════════════════════════════════════════════
+// PORTRAIT IMAGE FALLBACK
+// ═══════════════════════════════════════════════════════════════════════════
+document.querySelectorAll('.portrait-img').forEach(img=>{
+  img.addEventListener('error',()=>{
+    img.style.display='none';
+    img.setAttribute('data-failed','1');
+    const initials=img.parentElement.querySelector('.initials');
+    if(initials)initials.style.opacity='0.15';
+  });
+});
+
+// ═══════════════════════════════════════════════════════════════════════════
+// SCROLL REVEAL ANIMATIONS
+// ═══════════════════════════════════════════════════════════════════════════
+const obs=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})
+},{threshold:0.15});
+document.querySelectorAll('.reveal,.reveal-left,.reveal-right,.reveal-scale').forEach(el=>obs.observe(el));
+
+// Info card observer
+function setupInfoCards(containerId){
+  const cards=document.querySelectorAll('#'+containerId+' .info-card');
+  const io=new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        const d=parseInt(e.target.dataset.delay)||0;
+        setTimeout(()=>e.target.classList.add('visible'),d);
+      }
+    });
+  },{threshold:0.1});
+  cards.forEach(c=>io.observe(c));
+}
+setupInfoCards('colInfo');
+setupInfoCards('catInfo');
+
+// ═══════════════════════════════════════════════════════════════════════════
+// SHARED 3D HELPERS
+// ═══════════════════════════════════════════════════════════════════════════
+const INK=0x1b3d6e,INK2=0x3a6898,INK3=0x8ab0cc,BRZ=0x7a4812,BRZ2=0x9a6828;
+const SEC=0xc83218,SEC2=0xe04a10,CREAM=0xede6d0,CREAM2=0xe8dfc6,CREAM3=0xf2ece0,AMBER=0xe8d8b0;
+
+function eMat(c=INK,o=0.92){return new THREE.LineBasicMaterial({color:c,transparent:true,opacity:o})}
+function addSolid(scene,geo,pos,ec=INK,fc=CREAM,op=0.82){
+  const m=new THREE.Mesh(geo,new THREE.MeshBasicMaterial({color:fc,transparent:true,opacity:op,side:THREE.FrontSide}));
+  const e=new THREE.LineSegments(new THREE.EdgesGeometry(geo),eMat(ec));
+  m.position.copy(pos);e.position.copy(pos);scene.add(m,e);
+}
+function addLine(scene,x1,y1,z1,x2,y2,z2,c=INK2,o=0.55){
+  const g=new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(x1,y1,z1),new THREE.Vector3(x2,y2,z2)]);
+  scene.add(new THREE.Line(g,eMat(c,o)));
+}
+function addLabel(scene,text,pos,color='#1b3d6e',px=15,bold=false,sprScale=8){
+  const c=document.createElement('canvas');c.width=580;c.height=72;
+  const ctx=c.getContext('2d');ctx.clearRect(0,0,580,72);
+  ctx.font=`${bold?'bold ':''}${px}px Courier New`;ctx.fillStyle=color;ctx.fillText(text,4,50);
+  const s=new THREE.Sprite(new THREE.SpriteMaterial({map:new THREE.CanvasTexture(c),transparent:true,opacity:0.95}));
+  s.scale.set(sprScale,sprScale/8,1);s.position.copy(pos);scene.add(s);
+}
+
+function createOrbitControls(canvas,sph,tgt,autoRotState,labelEl){
+  let dragging=false,rightBtn=false,prev={x:0,y:0},lt=null;
+  let rotSpeed=0;const ROT_MAX=0.0045;let idleTimer=null;const IDLE_RESUME=4000;
+
+  function setAuto(on){autoRotState.on=on;labelEl.textContent=on?'AUTO ROTATE: ON':'AUTO ROTATE: OFF'}
+  function resetIdle(){clearTimeout(idleTimer);idleTimer=setTimeout(()=>setAuto(true),IDLE_RESUME)}
+
+  labelEl.style.pointerEvents='auto';labelEl.style.cursor='pointer';
+  labelEl.addEventListener('click',()=>{clearTimeout(idleTimer);setAuto(!autoRotState.on)});
+
+  canvas.addEventListener('mousedown',e=>{dragging=true;rightBtn=e.button===2;prev={x:e.clientX,y:e.clientY};setAuto(false);resetIdle()});
+  canvas.addEventListener('contextmenu',e=>e.preventDefault());
+  canvas.addEventListener('mouseup',()=>dragging=false);
+  canvas.addEventListener('mousemove',e=>{
+    if(!dragging)return;const dx=e.clientX-prev.x,dy=e.clientY-prev.y;
+    if(rightBtn){tgt.x-=dx*0.04;tgt.y+=dy*0.04}
+    else{sph.theta-=dx*0.006;sph.phi=Math.max(0.12,Math.min(Math.PI*0.88,sph.phi+dy*0.006))}
+    prev={x:e.clientX,y:e.clientY};
+  });
+  // Zoom only with Ctrl held — otherwise let page scroll normally
+  let zoomHintEl=null;let zoomHintTimer=null;
+  canvas.addEventListener('wheel',e=>{
+    if(e.ctrlKey||e.metaKey){
+      e.preventDefault();
+      sph.r=Math.max(8,Math.min(300,sph.r+e.deltaY*0.06));
+      setAuto(false);resetIdle();
+      if(zoomHintEl)zoomHintEl.style.opacity='0';
+    } else {
+      // Show hint briefly
+      if(!zoomHintEl){
+        zoomHintEl=canvas.parentElement.querySelector('.zoom-hint');
+      }
+      if(zoomHintEl){
+        zoomHintEl.style.opacity='1';
+        clearTimeout(zoomHintTimer);
+        zoomHintTimer=setTimeout(()=>{zoomHintEl.style.opacity='0'},1500);
+      }
+    }
+  },{passive:false});
+  canvas.addEventListener('touchstart',e=>{lt=e.touches[0];setAuto(false);resetIdle()});
+  canvas.addEventListener('touchend',()=>lt=null);
+  canvas.addEventListener('touchmove',e=>{
+    if(!lt)return;
+    sph.theta-=(e.touches[0].clientX-lt.clientX)*0.008;
+    sph.phi=Math.max(0.2,Math.min(Math.PI*0.85,sph.phi+(e.touches[0].clientY-lt.clientY)*0.008));
+    lt=e.touches[0];
+  });
+
+  return{
+    update(camera){
+      const target=autoRotState.on?ROT_MAX:0;
+      rotSpeed+=(target-rotSpeed)*0.04;
+      if(Math.abs(rotSpeed)>0.00001)sph.theta+=rotSpeed;
+      camera.position.set(
+        tgt.x+sph.r*Math.sin(sph.phi)*Math.sin(sph.theta),
+        tgt.y+sph.r*Math.cos(sph.phi),
+        tgt.z+sph.r*Math.sin(sph.phi)*Math.cos(sph.theta)
+      );
+      camera.lookAt(tgt);
+    }
+  };
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// ALEXANDER COLUMN (from provided code, adapted)
+// ═══════════════════════════════════════════════════════════════════════════
+(function(){
+  const canvas=document.getElementById('columnCanvas');
+  const renderer=new THREE.WebGLRenderer({canvas,antialias:true});
+  renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+  renderer.setClearColor(0xf0e9d6,1);
+  const scene=new THREE.Scene();
+  const camera=new THREE.PerspectiveCamera(50,1,0.1,500);
+  scene.fog=new THREE.FogExp2(0xf0e9d6,0.007);
+
+  function resize(){
+    const rect=canvas.parentElement.getBoundingClientRect();
+    renderer.setSize(rect.width,rect.height);
+    camera.aspect=rect.width/rect.height;camera.updateProjectionMatrix();
+  }
+  resize();window.addEventListener('resize',resize);
+
+  // Grid
+  scene.add(new THREE.GridHelper(64,32,INK3,0xddd6c0));
+  const ring=new THREE.Mesh(new THREE.RingGeometry(14.9,15.1,64),new THREE.MeshBasicMaterial({color:INK3,transparent:true,opacity:0.28,side:THREE.DoubleSide}));
+  ring.rotation.x=-Math.PI/2;scene.add(ring);
+
+  let Y=0;
+  // Steps
+  for(const[h,w]of[[0.7,9],[0.6,7.8],[0.5,6.8]]){
+    addSolid(scene,new THREE.BoxGeometry(w,h,w),new THREE.Vector3(0,Y+h/2,0),INK2,CREAM2,0.80);Y+=h;
+  }
+  // Pedestal base
+  addSolid(scene,new THREE.BoxGeometry(5.6,1.2,5.6),new THREE.Vector3(0,Y+0.6,0),INK,CREAM,0.85);Y+=1.2;
+  addSolid(scene,new THREE.BoxGeometry(5.4,0.3,5.4),new THREE.Vector3(0,Y+0.15,0),INK,CREAM,0.85);Y+=0.3;
+  // Pedestal body
+  const pedCY=Y+1.9;
+  addSolid(scene,new THREE.BoxGeometry(4.8,3.8,4.8),new THREE.Vector3(0,pedCY,0),INK,CREAM,0.88);Y+=3.8;
+  // Relief panels
+  for(let i=0;i<4;i++){
+    const a=(i/4)*Math.PI*2,d=2.42;
+    const pg=new THREE.BoxGeometry(2.8,2.2,0.08);
+    const pm=new THREE.Mesh(pg,new THREE.MeshBasicMaterial({color:CREAM2,transparent:true,opacity:0.9}));
+    const pe=new THREE.LineSegments(new THREE.EdgesGeometry(pg),eMat(INK2,0.65));
+    pm.position.set(Math.sin(a)*d,pedCY,Math.cos(a)*d);pm.rotation.y=a;
+    pe.position.copy(pm.position);pe.rotation.y=a;scene.add(pm,pe);
+  }
+  // Top mouldings
+  addSolid(scene,new THREE.BoxGeometry(5.2,0.4,5.2),new THREE.Vector3(0,Y+0.2,0),INK,CREAM,0.85);Y+=0.4;
+  addSolid(scene,new THREE.BoxGeometry(5.0,0.5,5.0),new THREE.Vector3(0,Y+0.25,0),INK,CREAM,0.90);Y+=0.5;
+  // Column base
+  addSolid(scene,new THREE.TorusGeometry(1.70,0.22,12,48),new THREE.Vector3(0,Y+0.12,0),INK,CREAM,0.85);Y+=0.24;
+  addSolid(scene,new THREE.CylinderGeometry(1.95,2.20,0.30,36),new THREE.Vector3(0,Y+0.15,0),INK,CREAM,0.85);Y+=0.30;
+
+  // Shaft
+  const COL_H=17,COL_SEG=48,shaftBaseY=Y;
+  const shaftGeo=new THREE.CylinderGeometry(1.72,1.95,COL_H,COL_SEG);
+  scene.add(new THREE.Mesh(shaftGeo,new THREE.MeshBasicMaterial({color:CREAM3,transparent:true,opacity:0.90})));
+  scene.children[scene.children.length-1].position.set(0,Y+COL_H/2,0);
+  scene.add(new THREE.LineSegments(new THREE.EdgesGeometry(shaftGeo),eMat(INK,0.92)));
+  scene.children[scene.children.length-1].position.set(0,Y+COL_H/2,0);
+
+  // Section cuts
+  const sections=[{f:1/8,name:'А–А',dia:3.58},{f:2/8,name:'Б–Б',dia:3.52},{f:3/8,name:'В–В',dia:3.44},{f:4/8,name:'Г–Г',dia:3.35},{f:5/8,name:'Д–Д',dia:3.26},{f:6/8,name:'Е–Е',dia:3.17},{f:7/8,name:'Ж–Ж',dia:3.08}];
+  for(const{f,name,dia}of sections){
+    const sy=shaftBaseY+f*COL_H,r=1.95+(1.72-1.95)*f;
+    const rm=new THREE.Mesh(new THREE.RingGeometry(r-0.055,r+0.055,COL_SEG),new THREE.MeshBasicMaterial({color:SEC,transparent:true,opacity:0.92,side:THREE.DoubleSide}));
+    rm.rotation.x=-Math.PI/2;rm.position.set(0,sy,0);scene.add(rm);
+    addLine(scene,r+0.12,sy,0,r+2.6,sy,0,SEC2,0.72);
+    addLine(scene,-r-0.12,sy,0,-r-1.2,sy,0,SEC2,0.40);
+    addLabel(scene,`СЕЧЕНИЕ ${name}   Ø ${dia.toFixed(2)} м`,new THREE.Vector3(r+6.2,sy,0),'#c83218',24,true);
+  }
+  Y+=COL_H;
+
+  // Capital
+  addSolid(scene,new THREE.CylinderGeometry(1.60,1.72,0.28,36),new THREE.Vector3(0,Y+0.14,0),INK,CREAM,0.85);Y+=0.28;
+  addSolid(scene,new THREE.CylinderGeometry(1.55,1.60,0.40,36),new THREE.Vector3(0,Y+0.20,0),INK,CREAM,0.88);Y+=0.40;
+  addSolid(scene,new THREE.TorusGeometry(1.58,0.10,8,48),new THREE.Vector3(0,Y+0.06,0),INK,CREAM,0.80);Y+=0.12;
+  addSolid(scene,new THREE.CylinderGeometry(1.90,1.55,0.50,36),new THREE.Vector3(0,Y+0.25,0),INK,CREAM,0.88);Y+=0.50;
+  // Acanthus
+  for(let i=0;i<8;i++){
+    const a=(i/8)*Math.PI*2;
+    const lg=new THREE.ConeGeometry(0.35,1.10,6);
+    const lm=new THREE.Mesh(lg,new THREE.MeshBasicMaterial({color:CREAM2,transparent:true,opacity:0.85}));
+    const le=new THREE.LineSegments(new THREE.EdgesGeometry(lg),eMat(INK,0.70));
+    lm.position.set(Math.sin(a)*1.65,Y-0.40,Math.cos(a)*1.65);lm.rotation.y=a;lm.rotation.z=Math.PI*0.18;
+    le.position.copy(lm.position);le.rotation.copy(lm.rotation);scene.add(lm,le);
+  }
+  addSolid(scene,new THREE.CylinderGeometry(2.10,1.90,0.90,36),new THREE.Vector3(0,Y+0.45,0),INK,CREAM,0.88);Y+=0.90;
+  addSolid(scene,new THREE.BoxGeometry(4.0,0.45,4.0),new THREE.Vector3(0,Y+0.22,0),INK,CREAM,0.90);
+  addSolid(scene,new THREE.BoxGeometry(3.8,0.20,3.8),new THREE.Vector3(0,Y+0.55,0),INK2,CREAM,0.85);Y+=0.65;
+
+  // Angel
+  addSolid(scene,new THREE.CylinderGeometry(1.40,1.50,0.60,12),new THREE.Vector3(0,Y+0.30,0),BRZ,AMBER,0.90);Y+=0.60;
+  addSolid(scene,new THREE.CylinderGeometry(0.55,0.62,2.20,12),new THREE.Vector3(0,Y+1.10,0),BRZ,AMBER,0.88);
+  addSolid(scene,new THREE.SphereGeometry(0.38,12,12),new THREE.Vector3(0,Y+2.58,0),BRZ,AMBER,0.90);
+  // Wings
+  for(const side of[-1,1]){
+    const wg=new THREE.ConeGeometry(0.25,2.2,6);
+    const wm=new THREE.Mesh(wg,new THREE.MeshBasicMaterial({color:AMBER,transparent:true,opacity:0.85}));
+    const we=new THREE.LineSegments(new THREE.EdgesGeometry(wg),eMat(BRZ,0.80));
+    wm.position.set(side*1.1,Y+1.5,0);wm.rotation.z=side*Math.PI*0.35;wm.rotation.y=side*-0.2;
+    we.position.copy(wm.position);we.rotation.copy(wm.rotation);scene.add(wm,we);
+  }
+  // Cross
+  addSolid(scene,new THREE.BoxGeometry(0.10,2.0,0.08),new THREE.Vector3(0,Y+3.54+1.0,0),BRZ,AMBER,0.90);
+  addSolid(scene,new THREE.BoxGeometry(0.90,0.10,0.08),new THREE.Vector3(0,Y+3.54+1.5,0),BRZ,AMBER,0.90);
+  Y+=2.2+0.38*2+2.2;
+
+  // Dimension lines
+  const DX=7.2;
+  addLine(scene,DX,0,0,DX,Y,0,INK2,0.60);
+  addLine(scene,DX-0.35,0,0,DX+0.35,0,0,INK2,0.60);
+  addLine(scene,DX-0.35,Y,0,DX+0.35,Y,0,INK2,0.60);
+  const sT=shaftBaseY+COL_H;
+  addLine(scene,DX+1.8,shaftBaseY,0,DX+1.8,sT,0,INK3,0.65);
+  addLine(scene,DX+1.4,shaftBaseY,0,DX+2.2,shaftBaseY,0,INK3,0.65);
+  addLine(scene,DX+1.4,sT,0,DX+2.2,sT,0,INK3,0.65);
+
+  // Labels
+  addLabel(scene,'► 47.50 м — ОБЩАЯ ВЫСОТА',new THREE.Vector3(9.8,Y/2,0),'#1b3d6e',18,true);
+  addLabel(scene,'25.58 м — СТВОЛ КОЛОННЫ',new THREE.Vector3(10.2,shaftBaseY+COL_H/2,0),'#3a6898',17);
+  addLabel(scene,'ГРАНИТНЫЙ МОНОЛИТ',new THREE.Vector3(-3.8,shaftBaseY+9.5,0),'#8ab0cc',17);
+  addLabel(scene,'КАПИТЕЛЬ (БРОНЗА)',new THREE.Vector3(4.2,sT+1.6,0),'#7a4812',17,true);
+  addLabel(scene,'АНГЕЛ И КРЕСТ — 4.26 М',new THREE.Vector3(4.2,sT+4.6,0),'#7a4812',17,true);
+
+  // Orbit
+  const sph={theta:0.5,phi:1.08,r:62},tgt=new THREE.Vector3(0,14,0),autoRot={on:true};
+  const ctrl=createOrbitControls(canvas,sph,tgt,autoRot,document.getElementById('colRotLabel'));
+
+  (function animate(){requestAnimationFrame(animate);ctrl.update(camera);renderer.render(scene,camera)})();
+})();
+
+// ═══════════════════════════════════════════════════════════════════════════
+// ST ISAAC'S CATHEDRAL
+// ═══════════════════════════════════════════════════════════════════════════
+(function(){
+  const canvas=document.getElementById('cathedralCanvas');
+  const renderer=new THREE.WebGLRenderer({canvas,antialias:true});
+  renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+  renderer.setClearColor(0xf0e9d6,1);
+  const scene=new THREE.Scene();
+  const camera=new THREE.PerspectiveCamera(50,1,0.1,1200);
+  scene.fog=new THREE.FogExp2(0xf0e9d6,0.003);
+
+  function resize(){
+    const rect=canvas.parentElement.getBoundingClientRect();
+    renderer.setSize(rect.width,rect.height);
+    camera.aspect=rect.width/rect.height;camera.updateProjectionMatrix();
+  }
+  resize();window.addEventListener('resize',resize);
+
+  // Grid
+  scene.add(new THREE.GridHelper(120,40,INK3,0xddd6c0));
+
+  // Scale: 1 unit ≈ 1 meter. Cathedral ~111.5 x 97.6 m, height 101.5 m
+  // Simplified proportions for recognizable form
+
+  let Y=0;
+  const BW=48,BD=38; // base width / depth (simplified)
+
+  // ── FOUNDATION / STYLOBATE ──
+  addSolid(scene,new THREE.BoxGeometry(BW+8,1.5,BD+8),new THREE.Vector3(0,0.75,0),INK2,CREAM2,0.75);Y+=1.5;
+  addSolid(scene,new THREE.BoxGeometry(BW+4,1.0,BD+4),new THREE.Vector3(0,Y+0.5,0),INK2,CREAM2,0.78);Y+=1.0;
+  addSolid(scene,new THREE.BoxGeometry(BW+2,0.6,BD+2),new THREE.Vector3(0,Y+0.3,0),INK,CREAM,0.80);Y+=0.6;
+
+  // ── MAIN BODY ──
+  const BODY_H=22;
+  addSolid(scene,new THREE.BoxGeometry(BW,BODY_H,BD),new THREE.Vector3(0,Y+BODY_H/2,0),INK,CREAM,0.85);
+  // Window recesses on sides
+  for(let side of[-1,1]){
+    for(let i=-2;i<=2;i++){
+      const wg=new THREE.BoxGeometry(0.15,8,3);
+      const wm=new THREE.LineSegments(new THREE.EdgesGeometry(wg),eMat(INK2,0.45));
+      wm.position.set(side*(BW/2+0.08),Y+BODY_H/2+2,i*7);scene.add(wm);
+    }
+    for(let i=-1;i<=1;i++){
+      const wg=new THREE.BoxGeometry(3,8,0.15);
+      const wm=new THREE.LineSegments(new THREE.EdgesGeometry(wg),eMat(INK2,0.45));
+      wm.position.set(side*i*12,Y+BODY_H/2+2,side*(BD/2+0.08));scene.add(wm);
+    }
+  }
+
+  // ── PORTICOS (4 sides) ──
+  function buildPortico(scene,posX,posZ,rotY,numCols,depth){
+    const colH=17,colR=0.75,spacing=3.2;
+    const startX=-(numCols-1)*spacing/2;
+    for(let row=0;row<2;row++){
+      for(let i=0;i<numCols;i++){
+        const cg=new THREE.CylinderGeometry(colR*0.85,colR,colH,16);
+        const cm=new THREE.Mesh(cg,new THREE.MeshBasicMaterial({color:CREAM3,transparent:true,opacity:0.88}));
+        const ce=new THREE.LineSegments(new THREE.EdgesGeometry(cg),eMat(INK,0.75));
+        const lx=startX+i*spacing;
+        const lz=(row-0.5)*depth;
+        cm.position.set(lx,Y+colH/2,lz);ce.position.copy(cm.position);
+        // Rotate entire group
+        const g=new THREE.Group();g.add(cm,ce);
+        g.position.set(posX,0,posZ);g.rotation.y=rotY;
+        scene.add(g);
+      }
+    }
+    // Pediment (triangle)
+    const pw=(numCols-1)*spacing+4;
+    const pedGeo=new THREE.BufferGeometry();
+    const v=new Float32Array([
+      -pw/2,Y+colH+1,0, pw/2,Y+colH+1,0, 0,Y+colH+5,0
+    ]);
+    pedGeo.setAttribute('position',new THREE.BufferAttribute(v,3));
+    pedGeo.setIndex([0,1,2]);pedGeo.computeVertexNormals();
+    const pedM=new THREE.Mesh(pedGeo,new THREE.MeshBasicMaterial({color:CREAM,transparent:true,opacity:0.7,side:THREE.DoubleSide}));
+    const pedE=new THREE.LineSegments(new THREE.EdgesGeometry(pedGeo),eMat(INK,0.6));
+    const pg=new THREE.Group();pg.add(pedM,pedE);
+    pg.position.set(posX,0,posZ);pg.rotation.y=rotY;scene.add(pg);
+    // Entablature
+    const entG=new THREE.BoxGeometry(pw,1.2,depth+2);
+    const entGrp=new THREE.Group();
+    const em2=new THREE.Mesh(entG,new THREE.MeshBasicMaterial({color:CREAM,transparent:true,opacity:0.82}));
+    const ee2=new THREE.LineSegments(new THREE.EdgesGeometry(entG),eMat(INK,0.6));
+    em2.position.set(0,Y+colH+0.4,0);ee2.position.copy(em2.position);
+    entGrp.add(em2,ee2);entGrp.position.set(posX,0,posZ);entGrp.rotation.y=rotY;
+    scene.add(entGrp);
+  }
+
+  // North & South: 16 columns each, 2 rows
+  buildPortico(scene,0,-(BD/2+4),0,8,5);
+  buildPortico(scene,0,BD/2+4,Math.PI,8,5);
+  // East & West: 8 columns each
+  buildPortico(scene,-(BW/2+4),0,-Math.PI/2,8,3);
+  buildPortico(scene,BW/2+4,0,Math.PI/2,8,3);
+
+  Y+=BODY_H;
+
+  // ── CORNICE / UPPER MOULDING ──
+  addSolid(scene,new THREE.BoxGeometry(BW+2,1.2,BD+2),new THREE.Vector3(0,Y+0.6,0),INK,CREAM,0.82);Y+=1.2;
+
+  // ── ATTIC ──
+  const ATTIC_H=6;
+  addSolid(scene,new THREE.BoxGeometry(BW-4,ATTIC_H,BD-4),new THREE.Vector3(0,Y+ATTIC_H/2,0),INK,CREAM,0.80);Y+=ATTIC_H;
+
+  // ── DRUM / COLONNADE ──
+  const DRUM_H=14,DRUM_R=13;
+  addSolid(scene,new THREE.CylinderGeometry(DRUM_R,DRUM_R+1,2,48),new THREE.Vector3(0,Y+1,0),INK,CREAM,0.82);Y+=2;
+  // Drum wall
+  addSolid(scene,new THREE.CylinderGeometry(DRUM_R-1,DRUM_R-1,DRUM_H,48),new THREE.Vector3(0,Y+DRUM_H/2,0),INK,CREAM,0.78);
+  // Upper colonnade (24 columns around drum)
+  for(let i=0;i<24;i++){
+    const a=(i/24)*Math.PI*2;
+    const cx=Math.sin(a)*(DRUM_R+0.3),cz=Math.cos(a)*(DRUM_R+0.3);
+    const cg=new THREE.CylinderGeometry(0.45,0.50,DRUM_H-2,8);
+    const cm=new THREE.Mesh(cg,new THREE.MeshBasicMaterial({color:CREAM3,transparent:true,opacity:0.85}));
+    const ce=new THREE.LineSegments(new THREE.EdgesGeometry(cg),eMat(INK,0.65));
+    cm.position.set(cx,Y+DRUM_H/2,cz);ce.position.copy(cm.position);scene.add(cm,ce);
+  }
+  // Drum windows (arched recesses)
+  for(let i=0;i<12;i++){
+    const a=(i/12)*Math.PI*2;
+    const wx=Math.sin(a)*(DRUM_R-1.01),wz=Math.cos(a)*(DRUM_R-1.01);
+    const wg=new THREE.BoxGeometry(2.5,6,0.15);
+    const we=new THREE.LineSegments(new THREE.EdgesGeometry(wg),eMat(INK2,0.4));
+    we.position.set(wx,Y+DRUM_H/2+1,wz);we.rotation.y=a;scene.add(we);
+  }
+  Y+=DRUM_H;
+
+  // ── DOME ──
+  // Outer dome — clean hemisphere (like the real Isaac's rounded dome)
+  const DOME_R=DRUM_R+0.5;
+  const DOME_H=DOME_R*1.15; // slightly taller than pure hemisphere
+  const outerGeo=new THREE.SphereGeometry(DOME_R,48,24,0,Math.PI*2,0,Math.PI/2);
+  outerGeo.scale(1,DOME_H/DOME_R,1);
+  const outerMesh=new THREE.Mesh(outerGeo,new THREE.MeshBasicMaterial({color:0xd4b860,transparent:true,opacity:0.55,side:THREE.FrontSide}));
+  const outerEdge=new THREE.LineSegments(new THREE.EdgesGeometry(outerGeo),eMat(BRZ,0.42));
+  outerMesh.position.set(0,Y,0);outerEdge.position.set(0,Y,0);
+  scene.add(outerMesh,outerEdge);
+
+  // Inner dome shell — wireframe only, no fill, clearly smaller
+  const innerGeo=new THREE.SphereGeometry(DOME_R*0.65,32,16,0,Math.PI*2,0,Math.PI/2);
+  innerGeo.scale(1,0.7,1);
+  const innerEdge=new THREE.LineSegments(new THREE.EdgesGeometry(innerGeo),eMat(INK3,0.30));
+  innerEdge.position.set(0,Y,0);
+  scene.add(innerEdge);
+
+  // Section ring — at 30% dome height, radius from sphere formula
+  const secFrac=0.30;
+  const secYLocal=DOME_H*secFrac;
+  const secY=Y+secYLocal;
+  const secR=DOME_R*Math.cos(Math.asin(secFrac)); // sphere cross-section radius
+  const secRing=new THREE.Mesh(
+    new THREE.RingGeometry(secR-0.12,secR+0.12,48),
+    new THREE.MeshBasicMaterial({color:SEC,transparent:true,opacity:0.70,side:THREE.DoubleSide})
+  );
+  secRing.rotation.x=-Math.PI/2;secRing.position.set(0,secY,0);scene.add(secRing);
+  addLine(scene,secR+0.3,secY,0,secR+10,secY,0,SEC2,0.65);
+  addLabel(scene,'ТРОЙНАЯ ОБОЛОЧКА КУПОЛА',new THREE.Vector3(secR+14,secY,0),'#c83218',30,true,20);
+  addLabel(scene,'Сферич. + Конич. + Парабол.',new THREE.Vector3(secR+14,secY-2.5,0),'#c83218',24,false,20);
+
+  Y+=DOME_H;
+
+  // ── LANTERN ──
+  addSolid(scene,new THREE.CylinderGeometry(2.5,3,4,16),new THREE.Vector3(0,Y+2,0),INK,CREAM,0.80);
+  // Lantern columns
+  for(let i=0;i<8;i++){
+    const a=(i/8)*Math.PI*2;
+    const cg=new THREE.CylinderGeometry(0.2,0.22,3.5,6);
+    const cm=new THREE.Mesh(cg,new THREE.MeshBasicMaterial({color:CREAM3,transparent:true,opacity:0.80}));
+    const ce=new THREE.LineSegments(new THREE.EdgesGeometry(cg),eMat(INK,0.55));
+    cm.position.set(Math.sin(a)*3.2,Y+2,Math.cos(a)*3.2);
+    ce.position.copy(cm.position);scene.add(cm,ce);
+  }
+  Y+=4;
+  // Lantern dome
+  addSolid(scene,new THREE.SphereGeometry(2.8,16,8,0,Math.PI*2,0,Math.PI/2),new THREE.Vector3(0,Y,0),BRZ,0xd4b860,0.70);
+  Y+=2.8;
+  // Cross
+  addSolid(scene,new THREE.CylinderGeometry(0.3,0.3,3,8),new THREE.Vector3(0,Y+1.5,0),BRZ,AMBER,0.85);
+  addSolid(scene,new THREE.BoxGeometry(0.12,4,0.08),new THREE.Vector3(0,Y+5,0),BRZ,AMBER,0.90);
+  addSolid(scene,new THREE.BoxGeometry(2.0,0.12,0.08),new THREE.Vector3(0,Y+6,0),BRZ,AMBER,0.90);
+  const topY=Y+7.5;
+
+  // ── FOUR BELL TOWERS ──
+  const towerPos=[[-BW/2+5,0,-BD/2+5],[BW/2-5,0,-BD/2+5],[-BW/2+5,0,BD/2-5],[BW/2-5,0,BD/2-5]];
+  for(const[tx,_,tz]of towerPos){
+    const tBase=3.1+BODY_H+1.2+ATTIC_H; // top of attic
+    addSolid(scene,new THREE.CylinderGeometry(3.5,4,8,12),new THREE.Vector3(tx,tBase+4,tz),INK,CREAM,0.75);
+    // Small columns around tower
+    for(let i=0;i<6;i++){
+      const a=(i/6)*Math.PI*2;
+      const cg2=new THREE.CylinderGeometry(0.18,0.20,6,6);
+      const ce2=new THREE.LineSegments(new THREE.EdgesGeometry(cg2),eMat(INK,0.45));
+      ce2.position.set(tx+Math.sin(a)*4,tBase+4,tz+Math.cos(a)*4);scene.add(ce2);
+    }
+    // Tower dome
+    addSolid(scene,new THREE.SphereGeometry(3.3,12,8,0,Math.PI*2,0,Math.PI*0.55),new THREE.Vector3(tx,tBase+8,tz),BRZ,0xd4b860,0.60);
+    // Tower cross
+    addSolid(scene,new THREE.BoxGeometry(0.08,2.5,0.06),new THREE.Vector3(tx,tBase+11.5,tz),BRZ,AMBER,0.80);
+    addSolid(scene,new THREE.BoxGeometry(1.0,0.08,0.06),new THREE.Vector3(tx,tBase+12.2,tz),BRZ,AMBER,0.80);
+  }
+
+  // ── DIMENSION LINES ──
+  const DX=BW/2+16;
+  addLine(scene,DX,0,0,DX,topY,0,INK2,0.55);
+  addLine(scene,DX-0.5,0,0,DX+0.5,0,0,INK2,0.55);
+  addLine(scene,DX-0.5,topY,0,DX+0.5,topY,0,INK2,0.55);
+  addLabel(scene,'► 101.5 м — ОБЩАЯ ВЫСОТА',new THREE.Vector3(DX+10,topY/2,0),'#1b3d6e',28,true,20);
+
+  // Drum level line
+  const drumBase=3.1+BODY_H+1.2+ATTIC_H;
+  addLine(scene,-BW/2-8,drumBase,0,BW/2+8,drumBase,0,INK3,0.20);
+  addLabel(scene,'КОЛОННАДА БАРАБАНА — 24 КОЛОННЫ',new THREE.Vector3(-BW/2-16,drumBase+2.5,0),'#3a6898',24,false,20);
+
+  // Portico level
+  addLabel(scene,'48 КОЛОНН ПОРТИКОВ',new THREE.Vector3(-BW/2-16,Y*0.22,0),'#3a6898',24,true,20);
+  addLabel(scene,'ПО 114 ТОНН КАЖДАЯ',new THREE.Vector3(-BW/2-16,Y*0.22-2.5,0),'#8ab0cc',22,false,20);
+
+  // Foundation label
+  addLabel(scene,'СВАЙНЫЙ ФУНДАМЕНТ',new THREE.Vector3(-BW/2-16,1,0),'#6a8aaa',22,false,20);
+  addLabel(scene,'>10 000 СВАЙ',new THREE.Vector3(-BW/2-16,-1.5,0),'#6a8aaa',20,false,20);
+
+  // Orbit controls
+  const sph={theta:0.6,phi:1.0,r:160},tgt=new THREE.Vector3(0,30,0),autoRot={on:true};
+  const ctrl=createOrbitControls(canvas,sph,tgt,autoRot,document.getElementById('catRotLabel'));
+
+  (function animate(){requestAnimationFrame(animate);ctrl.update(camera);renderer.render(scene,camera)})();
+})();
+</script>
+</body>
+</html>
